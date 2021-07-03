@@ -11,18 +11,7 @@ import com.menacho.Projeto.Model.Repository.ClienteRepository;
 
 @SpringBootApplication
 public class ProjetoApplication {
-	@Autowired
-	ClienteRepository repository;
 	
-	@Bean
-	public CommandLineRunner run() {
-		return args ->{
-			Cliente cliente = Cliente.builder().cpf("01866329243").nome("Gabriel").build();
-			repository.save(cliente);
-		};
-	}
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoApplication.class, args);
 	}
