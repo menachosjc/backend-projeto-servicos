@@ -18,7 +18,7 @@ import com.menacho.Projeto.Model.Entity.Cliente;
 import com.menacho.Projeto.Model.Entity.ServicoRealizado;
 import com.menacho.Projeto.Model.Repository.ClienteRepository;
 import com.menacho.Projeto.Model.Repository.ServicoRealizadoRepository;
-import com.menacho.Projeto.Rest.Dto.ServiceRealizadoDTO;
+import com.menacho.Projeto.Rest.Dto.ServicoRealizadoDTO;
 import com.menacho.Projeto.Util.BigDecimalConverter;
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +33,7 @@ public class ServicoRealizadoController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ServicoRealizado salvar(@RequestBody ServiceRealizadoDTO dto) {
+	public ServicoRealizado salvar(@RequestBody ServicoRealizadoDTO dto) {
 		ServicoRealizado servico = new ServicoRealizado();
 		LocalDate data = LocalDate.parse(dto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		Cliente cliente = clienteRepository.findById(dto.getIdCliente()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente inexistente"));		
@@ -48,7 +48,7 @@ public class ServicoRealizadoController {
 	
 	@GetMapping
 	public List<ServicoRealizado> buscar(
-			@RequestParam(value = "nome", required = false) String nome, 
+			@RequestParam(value = "nome", required = false, defaultValue = "") String nome, 
 			@RequestParam(value = "mes", required = false) Integer mes 
 	){			
 		return servicoRepository.findByNomeClienteAndMes("%"+nome+"%", mes);		
